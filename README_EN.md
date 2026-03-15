@@ -349,6 +349,15 @@ node bin/cli.js list
 
 ## Version History
 
+### v2.2.5
+- Fix: Correct archive path from `openspec/changes/archive/` to `openspec/archive/`
+
+### v2.2.4
+- Fix: Add missing artifact templates for trinity-workflow-v2 schema
+
+### v2.2.3
+- Publish to GitHub and npm
+
 ### v2.2.2
 - Add Three Principles for AI-Driven Development
 - Update README with core philosophy

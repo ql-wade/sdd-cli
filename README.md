@@ -349,10 +349,23 @@ node bin/cli.js list
 
 ## 版本历史
 
+### v2.2.5
+- Fix: Correct archive path from `openspec/changes/archive/` to `openspec/archive/`
+
+### v2.2.4
+- Fix: Add missing artifact templates for trinity-workflow-v2 schema
+
+### v2.2.3
+- Publish to GitHub and npm
+
+### v2.2.2
+- Add Three Principles for AI-Driven Development
+- Update README with core philosophy
+- Add English documentation
+
 ### v2.2.1
-- 修复 brainstorming skill 引用（使用 superpowers/brainstorming）
-- 更新 README 添加核心理念说明
-- 添加 Three Principles for AI-Driven Development
+- Fix brainstorming skill reference (superpowers/brainstorming)
+- Update README with core philosophy description
 
 ### v2.2.0
 - 明确追踪文件位置（openspec/changes/{change-id}/）

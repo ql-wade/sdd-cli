@@ -157,7 +157,7 @@ Use the Skill tool with skill: "planning-with-files"
 └─────────────────────────────────────────┘
 
 📁 归档位置: openspec/changes/archive/{change-id}/
-📝 总结报告: openspec/changes/archive/{change-id}/summary.md
+📝 总结报告: openspec/archive/{change-id}/summary.md
 
 🚀 可以开始新的变更: /trinity:new "描述"
 ```
