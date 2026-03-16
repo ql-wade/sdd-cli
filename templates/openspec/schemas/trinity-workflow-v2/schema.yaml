@@ -22,22 +22,22 @@ tracking:
     task_plan:
       path: "task_plan.md"
       description: "阶段、目标、决策、错误日志"
-      template: ".agents/skills/trinity-workflow/templates/task_plan.md"
+      template: "task_plan.md"
 
     findings:
       path: "findings.md"
       description: "技术发现、架构决策 (ADR)"
-      template: ".agents/skills/trinity-workflow/templates/findings.md"
+      template: "findings.md"
 
     progress:
       path: "progress.md"
       description: "会话进度日志、操作记录"
-      template: ".agents/skills/trinity-workflow/templates/progress.md"
+      template: "progress.md"
 
     delta_log:
       path: "delta-log.md"
       description: "Delta Specs 变更记录"
-      template: ".agents/skills/trinity-workflow/templates/delta-log.md"
+      template: "delta-log.md"
 
   events:
     onArtifactCreate:
