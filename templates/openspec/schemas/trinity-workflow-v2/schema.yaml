@@ -372,7 +372,7 @@ archive:
       - check: tracking files complete
     onArchive:
       - merge: delta specs → main specs
-      - move: changes/{id} → archive/{id}/
+      - move: changes/{id} → changes/archive/{YYYY-MM-DD}-{id}/
       - generate: archive summary
       - update: progress.md (归档日志)
       - clear: .active file
