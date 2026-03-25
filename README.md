@@ -234,7 +234,6 @@ Options:
   --skip-schema         跳过 schema 文件复制
   --skip-skills         跳过 skill 文件复制
   --platform <name>     目标平台: claude | opencode (默认自动检测)
-  --schema <name>       Schema 名称: trinity-workflow-v2 | trinity-workflow | hybrid-workflow
 ```
 
 ### `list`
@@ -311,11 +310,7 @@ your-project/
 
 ## 可用 Schema
 
-| Schema | 说明 |
-|--------|------|
-| `trinity-workflow-v2` | 三位一体架构工作流 v2 (推荐) |
-| `trinity-workflow` | 三位一体架构工作流 v1 |
-| `hybrid-workflow` | 融合工作流 |
+当前只支持 `trinity-workflow-v2` schema（三位一体架构工作流 v2）。
 
 ---
 
@@ -344,58 +339,6 @@ npm install
 node bin/cli.js init
 node bin/cli.js list
 ```
-
----
-
-## 版本历史
-
-### v2.2.6
-- Add Worktrunk config (wt.toml) support
-- Copy wt.toml to .config/ during init
-
-- Pre-switch: sync OpenSpec specs from origin/main
-- Pre-merge: run tests before merging
-- Post-switch: hint for start Agent
-- post-merge: notify when merge complete
-
-### v2.2.5
-- Fix: Correct archive path from `openspec/changes/archive/` to `openspec/archive/`
-
-### v2.2.4
-- Fix: Add missing artifact templates for trinity-workflow-v2 schema
-
-### v2.2.3
-- Publish to GitHub and npm
-
-### v2.2.2
-- Add Three Principles for AI-Driven Development
-- Update README with core philosophy
-- Add English documentation
-
-### v2.2.1
-- Fix brainstorming skill reference (superpowers/brainstorming)
-- Update README with core philosophy description
-
-### v2.2.0
-- 明确追踪文件位置（openspec/changes/{change-id}/）
-- 删除 .trinity 目录创建逻辑
-
-### v2.1.0
-- 三段式架构：planning-with-files → OpenSpec CLI → planning-with-files
-- 每个操作都通过 planning-with-files 更新追踪文件
-
-### v2.0.0
-- 添加 Trinity Workflow v2 schema
-- 集成 Planning-with-Files 作为上下文锚点
-- 支持 Delta Specs 机制
-- Profile 模式自动选择
-- 3-Strike 协议集成
-- **多平台支持**: Claude Code + OpenCode
-
-### v0.4.1
-- 初始版本
-- Trinity Workflow v1
-- Hybrid Workflow 支持
 
 ---
 

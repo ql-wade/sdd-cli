@@ -43,6 +43,42 @@ metadata:
 
 ## 执行流程
 
+### Phase 0: 加载项目上下文
+
+```
+[MUST] 在执行任何操作前，读取项目上下文作为架构约束
+```
+
+#### 0.1 读取 config.yaml
+
+```yaml
+# 解析 config.yaml
+contextFiles:  # Trinity 扩展配置
+  - path: openspec/project.md
+    description: 项目架构、子项目、设计文档引用
+    required: false
+```
+
+#### 0.2 读取 contextFiles 中的文件
+
+```
+遍历 contextFiles 数组:
+  for each file in contextFiles:
+    if file.required and not exists(file.path):
+      ERROR: "缺少必需的上下文文件: {file.path}"
+    else if exists(file.path):
+      content = read(file.path)
+      context_sections.append(file.description, content)
+```
+
+#### 0.3 用于任务执行
+
+- 理解代码应该放在哪个子项目
+- 遵循技术栈规范（NestJS/React/Fastify）
+- 参考设计文档路径
+
+---
+
 ### Phase 1: 调用 planning-with-files（前置）
 
 ```
@@ -58,6 +94,7 @@ Use the Skill tool with skill: "planning-with-files"
    - `tasks.md` - 获取任务列表
    - `findings.md` - 了解设计决策
    - `progress.md` - 了解历史操作
+3. 传递 Phase 0 组装的完整项目上下文作为架构约束
 
 ---
 

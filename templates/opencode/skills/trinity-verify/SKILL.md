@@ -42,6 +42,42 @@ metadata:
 
 ## 执行流程
 
+### Phase 0: 加载项目上下文
+
+```
+[MUST] 在执行任何操作前，读取项目上下文作为验证标准
+```
+
+#### 0.1 读取 config.yaml
+
+```yaml
+# 解析 config.yaml
+contextFiles:  # Trinity 扩展配置
+  - path: openspec/project.md
+    description: 项目架构、子项目、设计文档引用
+    required: false
+```
+
+#### 0.2 读取 contextFiles 中的文件
+
+```
+遍历 contextFiles 数组:
+  for each file in contextFiles:
+    if file.required and not exists(file.path):
+      ERROR: "缺少必需的上下文文件: {file.path}"
+    else if exists(file.path):
+      content = read(file.path)
+      context_sections.append(file.description, content)
+```
+
+#### 0.3 用于验证
+
+- Completeness: 检查是否覆盖所有子项目
+- Correctness: 验证技术栈一致性
+- Coherence: 验证架构设计一致性
+
+---
+
 ### Phase 1: 调用 planning-with-files（前置）
 
 ```
@@ -62,6 +98,8 @@ Use the Skill tool with skill: "planning-with-files"
    - `tasks.md` - 获取任务列表和完成状态
    - `specs/**/*.md` - 获取规格要求
    - `design.md` - 获取设计决策
+
+4. 传递 Phase 0 组装的完整项目上下文作为验证标准
 
 ---
 

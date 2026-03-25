@@ -1,7 +1,7 @@
 {
   "name": "sdd-ql-workflow",
-  "version": "2.2.7",
-  "description": "SDD (Skill-Driven Development) CLI - Hybrid workflow with OpenSpec flexibility + Trinity tracking ( Trinity Workflow v2 )",
+  "version": "2.3.0",
+  "description": "SDD (Skill-Driven Development) CLI - Trinity Workflow v2 with contextFiles support",
   "type": "module",
   "bin": {
     "sdd": "bin/cli.js"

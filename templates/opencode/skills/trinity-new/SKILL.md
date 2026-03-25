@@ -47,6 +47,67 @@ metadata:
 
 ## 执行流程
 
+### Phase 0: 加载项目上下文
+
+```
+[MUST] 在执行任何操作前，读取并组装完整的项目上下文
+```
+
+#### 0.1 读取 config.yaml
+
+```yaml
+# 解析 config.yaml
+contextFiles:  # Trinity 扩展配置
+  - path: openspec/project.md
+    description: 项目架构、子项目、设计文档引用
+    required: false
+
+context: |     # OpenSpec 标准配置
+  语言：中文（简体）
+  ...
+```
+
+#### 0.2 读取 contextFiles 中的文件
+
+```
+遍历 contextFiles 数组:
+  for each file in contextFiles:
+    if file.required and not exists(file.path):
+      ERROR: "缺少必需的上下文文件: {file.path}"
+    else if exists(file.path):
+      content = read(file.path)
+      context_sections.append(file.description, content)
+    else:
+      WARN: "上下文文件不存在: {file.path}"
+```
+
+#### 0.3 组装完整上下文
+
+```
+<project_context>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 来自 contextFiles -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+{project.md 内容}
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 来自 config.yaml context -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+
+{工作流规则}
+
+</project_context>
+```
+
+#### 0.4 用于后续决策
+
+- 生成合适的 change-id（基于项目命名规范）
+- 选择 Profile 模式（基于影响范围判断）
+- 分析变更影响范围（基于架构图）
+
+---
+
 ### Phase 1: 调用 planning-with-files（前置）
 
 ```
@@ -58,7 +119,7 @@ Use the Skill tool with skill: "planning-with-files"
 **目的**:
 1. 检查是否存在活跃变更（读取 `openspec/.active`）
 2. 如有活跃变更，询问用户是否继续或归档
-3. 读取项目上下文（`openspec/project.md`, `openspec/config.yaml`）
+3. 传递 Phase 0 组装的完整项目上下文
 
 ---
 
