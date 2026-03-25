@@ -15,12 +15,12 @@ const PLATFORMS = {
   claude: {
     name: 'Claude Code',
     skillsDir: '.claude/skills',
-    commandsDir: null, // Claude Code 不使用 commands 目录
+    commandsDir: null,
   },
   opencode: {
     name: 'OpenCode',
     skillsDir: '.opencode/skills',
-    commandsDir: '.opencode/commands',
+    commandsDir: null,
   }
 };
 
@@ -47,7 +47,6 @@ program
   .command('init')
   .description('Initialize SDD workflow configuration in current project')
   .option('-f, --force', 'Overwrite existing files', false)
-  .option('--skip-commands', 'Skip copying command files', false)
   .option('--skip-schema', 'Skip copying schema files', false)
   .option('--skip-skills', 'Skip copying skill files', false)
   .option('--platform <name>', 'Target platform: claude | opencode (auto-detect by default)')
@@ -117,32 +116,7 @@ program
         }
       }
 
-      // 2. Copy commands (only for platforms that support it)
-      if (!options.skipCommands && platformConfig.commandsDir) {
-        const commandsDir = path.join(cwd, platformConfig.commandsDir);
-        await fs.ensureDir(commandsDir);
-
-        const templateCommandsDir = path.join(TEMPLATES_DIR, 'opencode', 'commands');
-        const commands = await fs.readdir(templateCommandsDir);
-
-        let copiedCount = 0;
-        for (const cmd of commands) {
-          if (cmd.endsWith('.md')) {
-            const src = path.join(templateCommandsDir, cmd);
-            const dest = path.join(commandsDir, cmd);
-
-            if (await fs.exists(dest) && !options.force) {
-              console.log(chalk.gray(`  ${cmd} already exists, skipping`));
-            } else {
-              await fs.copy(src, dest);
-              copiedCount++;
-            }
-          }
-        }
-        console.log(chalk.green(`✓ Copied ${copiedCount} command files to ${platformConfig.commandsDir}/`));
-      }
-
-      // 3. Copy skills (platform-specific)
+      // 2. Copy skills (platform-specific)
       if (!options.skipSkills) {
         const skillsDir = path.join(cwd, platformConfig.skillsDir);
         await fs.ensureDir(skillsDir);
